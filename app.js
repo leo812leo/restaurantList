@@ -12,20 +12,20 @@ app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 //route seeting 
 app.get('/', (req, res) => {
-  res.render('index', { movies: moviesList.results })
+  res.render('index', { restaurants: resturantList.results })
 })
 
-app.get('/search', (req, res) => {
-  const keyword = req.query.keyword
-  const movies = moviesList.results.filter(movie => {
-    return movie.title.toLowerCase().includes(keyword.toLowerCase())
-  })
-  res.render('index', { movies, keyword })
-})
+// app.get('/search', (req, res) => {
+//   const keyword = req.query.keyword
+//   const movies = moviesList.results.filter(movie => {
+//     return movie.title.toLowerCase().includes(keyword.toLowerCase())
+//   })
+//   res.render('index', { movies, keyword })
+// })
 
-app.get('/movies/:movie_id', (req, res) => {
-  res.render('show', { movie: moviesList.results[Number(req.params.movie_id) - 1] })
-})
+// app.get('/movies/:movie_id', (req, res) => {
+//   res.render('show', { movie: moviesList.results[Number(req.params.movie_id) - 1] })
+// })
 
 //start and listen the Express sereve
 app.listen(port, () => {
