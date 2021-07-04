@@ -18,13 +18,14 @@ app.get('/', (req, res) => {
   res.render('index', { restaurants: restaurantList.results })
 })
 
-// app.get('/search', (req, res) => {
-//   const keyword = req.query.keyword
-//   const movies = moviesList.results.filter(movie => {
-//     return movie.title.toLowerCase().includes(keyword.toLowerCase())
-//   })
-//   res.render('index', { movies, keyword })
-// })
+app.get('/search', (req, res) => {
+  const keyword = req.query.keyword.trim().toLowerCase()
+  const restaurants_filter = restaurantList.results.filter(restaurant => {
+    return restaurant.name.toLowerCase().includes(keyword)
+  })
+  console.log(restaurants_filter)
+  res.render('index', { restaurants: restaurants_filter, keyword })
+})
 
 app.get('/restaurants/:restaurant_id', (req, res) => {
   res.render('show', { restaurant: restaurantList.results[Number(req.params.restaurant_id) - 1] })
