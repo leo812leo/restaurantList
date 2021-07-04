@@ -6,7 +6,6 @@
 - 可以根據餐廳名稱或分類來找到特定的餐廳
 ## 環境建置 Environment Setup
 ---
-nvm & Node.js
 1. nvm & Node.js
 2. nodemon
 
