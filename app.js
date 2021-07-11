@@ -1,11 +1,11 @@
-// require packages used in the project
+// Express
 const express = require('express')
 const app = express()
+// 設定Server Port
 const port = 3000
 
 const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
-const restaurant = require('./models/restaurantSchema')
+const Restaurant = require('./models/restaurant')
 //mongoose
 mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
 const db = mongoose.connection
@@ -17,14 +17,13 @@ db.once('open', () => {
   console.log('mongodb connected.')
 })
 
-// require express-handlebars here
+// express-handlebars
 const exphbs = require('express-handlebars')
-const restaurantList = require('./restaurant.json')
 // express template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' })) // 定義要使用的樣板引擎
 app.set('view engine', 'handlebars') //設定的 view engine 是 handlebars
 // body-parser
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }))
 // setting static files
 app.use(express.static('public'))
 
@@ -32,9 +31,39 @@ app.use(express.static('public'))
 // routes setting
 // index
 app.get('/', (req, res) => {
-  res.render('index', { restaurants: restaurantList.results })
+  Restaurant.find() //拿全部資料
+    .lean()
+    .then(restaurants => res.render('index', { restaurants }))
+    .catch(error => console.error(error))
 })
 
+// create
+app.get('/restaurants/new', (req, res) => {
+  return res.render('new')
+})
+// read
+app.post('/restaurants', (req, res) => {
+  const name = req.body.name
+  const image = req.body.image
+  const category = req.body.category
+  const rating = req.body.rating
+  const location = req.body.location
+  const google_map = req.body.google_map
+  const phone = req.body.phone
+  const description = req.body.description
+
+  return Restaurant.create({ name, image, category, rating, location, google_map, phone, description })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render('detail', { restaurant }))
+    .catch(error => console.log(error))
+})
 
 // search
 app.get('/search', (req, res) => {
