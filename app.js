@@ -113,18 +113,16 @@ app.get('/restaurants/:id', (req, res) => {
 
 // search
 app.get('/search', (req, res) => {
-  const keyword = req.query.keyword.trim().toLowerCase()
-  const restaurants_filter = restaurantList.results.filter(restaurant => {
-    return restaurant.name.toLowerCase().includes(keyword) || restaurant.category.toLowerCase().includes(keyword)
-  })
-  res.render('index', { restaurants: restaurants_filter, keyword })
+  const keyword = req.query.keyword.toLowerCase().trim()
+  Restaurant.find(
+    {
+      $or: [{ name: { $regex: keyword, $options: 'i' } }, { category: { $regex: keyword, $options: 'i' } }]
+    }
+  )
+    .lean()
+    .then(restaurants => res.render('index', { restaurants, keyword }))
+    .catch(error => console.error(error))
 })
-
-app.get('/restaurants/:restaurant_id', (req, res) => {
-  res.render('show', { restaurant: restaurantList.results[Number(req.params.restaurant_id) - 1] })
-})
-
-
 
 //listener
 app.listen(port, () => {
