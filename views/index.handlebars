@@ -50,6 +50,24 @@
 
               </div>
             </div>
+            <div class="restaurant-button-group container mb-3">
+              <a
+                class="btn btn-secondary m-1"
+                href="/restaurants/{{this._id}}/edit"
+                role="button"
+              >編輯</a>
+              <a
+                class="btn btn-info m-1"
+                href="/restaurants/{{this._id}}"
+                role="button"
+              >詳細資訊</a>
+              <button
+                type="button"
+                class="btn btn-danger m-1 deleteButton"
+                data-toggle="modal"
+                data-target="#deleteModal{{this._id}}"
+              >刪除</button>
+            </div>
           </a>
         {{/each}}
 
