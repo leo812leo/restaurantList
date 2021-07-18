@@ -7,20 +7,32 @@ const Restaurant = require('../../models/restaurant')
 // 準備引入路由模組
 
 /* create */
-//creat page
+//to creat page
 router.get('/new', (req, res) => {
   return res.render('new')
 })
 //creat restaurant
 router.post('/', (req, res) => {
   const { name, image, category, rating, location, google_map, phone, description } = req.body
-  console.log(name, image, category, rating, location, google_map, phone, description)
   return Restaurant.create({ name, image, category, rating, location, google_map, phone, description })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
-//update (edit)
+
+/* read */
+//detial
+router.get('/:id', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render('detail', { restaurant }))
+    .catch(error => console.log(error))
+})
+
+
+/* update */
+//to update page
 router.get('/:id/edit', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
@@ -28,7 +40,7 @@ router.get('/:id/edit', (req, res) => {
     .then((restaurant) => res.render('edit', { restaurant }))
     .catch(error => console.log(error))
 })
-
+//update restaurant
 router.put('/:id', (req, res) => {
   const id = req.params.id
   const { name, image, category, rating, location, google_map, phone, description } = req.body
@@ -42,7 +54,9 @@ router.put('/:id', (req, res) => {
     .catch(error => console.log(error))
 
 })
-// delete
+
+
+/* delete */
 router.delete('/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
@@ -51,15 +65,6 @@ router.delete('/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
-
-//detial
-router.get('/:id', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
-    .lean()
-    .then((restaurant) => res.render('detail', { restaurant }))
-    .catch(error => console.log(error))
-})
 
 // 匯出路由器
 module.exports = router
