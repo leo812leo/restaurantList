@@ -3,7 +3,8 @@ const express = require('express')
 const app = express()
 // 設定Server Port
 const port = 3000
-
+/* import */
+const methodOverride = require('method-override')
 const mongoose = require('mongoose')
 const Restaurant = require('./models/restaurant')
 //mongoose
@@ -26,7 +27,7 @@ app.set('view engine', 'handlebars') //設定的 view engine 是 handlebars
 app.use(express.urlencoded({ extended: true }))
 // setting static files
 app.use(express.static('public'))
-
+app.use(methodOverride('_method'))
 
 // routes setting
 // index
@@ -37,25 +38,20 @@ app.get('/', (req, res) => {
     .catch(error => console.error(error))
 })
 
-// create
+/* create */
+//creat page
 app.get('/restaurants/new', (req, res) => {
   return res.render('new')
 })
-// read
+//creat restaurant
 app.post('/restaurants', (req, res) => {
-  const name = req.body.name
-  const image = req.body.image
-  const category = req.body.category
-  const rating = req.body.rating
-  const location = req.body.location
-  const google_map = req.body.google_map
-  const phone = req.body.phone
-  const description = req.body.description
-
+  const { name, image, category, rating, location, google_map, phone, description } = req.body
+  console.log(name, image, category, rating, location, google_map, phone, description)
   return Restaurant.create({ name, image, category, rating, location, google_map, phone, description })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
+
 //update (edit)
 app.get('/restaurants/:id/edit', (req, res) => {
   const id = req.params.id
@@ -65,27 +61,13 @@ app.get('/restaurants/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
-  const name = req.body.name
-  const image = req.body.image
-  const category = req.body.category
-  const rating = req.body.rating
-  const location = req.body.location
-  const google_map = req.body.google_map
-  const phone = req.body.phone
-  const description = req.body.description
-  console.log(name, rating)
+  const { name, image, category, rating, location, google_map, phone, description } = req.body
   return Restaurant.findById(id)
     .then(restaurant => {
-      restaurant.name = name
-      restaurant.image = image
-      restaurant.category = category
-      restaurant.rating = rating
-      restaurant.location = location
-      restaurant.google_map = google_map
-      restaurant.phone = phone
-      restaurant.description = description
+      [restaurant.name, restaurant.image, restaurant.category, restaurant.rating, restaurant.location, restaurant.google_map, restaurant.phone, restaurant.description] =
+        [name, image, category, rating, location, google_map, phone, description];
       return restaurant.save()
     })
     .then(() => res.redirect(`/restaurants/${id}`))
@@ -93,7 +75,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 
 })
 // delete
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurant => restaurant.remove())

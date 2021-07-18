@@ -21,7 +21,7 @@ header {
   filter: blur(3px);
 }
 
-.search-bar .search-bar-outer {
+.container.all {
   margin: 0 auto;
   max-width: 680px;
   background-color: #fce2cf;
@@ -32,7 +32,7 @@ header {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
 
-.search-bar .search-bar-inner h4 {
+.container.all h4 {
   color: #9b4b4b;
 }
 

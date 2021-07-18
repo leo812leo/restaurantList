@@ -1,5 +1,5 @@
-<!-- search bar -->
-<div class="container search-bar">
+<div class="container all d-flex justify-content-around">
+  <!-- search bar -->
   <div class="search-bar-outer">
     <div class="search-bar-inner">
       <form action="/search">
@@ -23,6 +23,17 @@
       </form>
     </div>
   </div>
+  <form class="form-group">
+    <h4>排序方式</h4>
+    <select class="form-control">
+      <option selected>Sort</option>
+      <option>A -> Z</option>
+      <option>Z -> A</option>
+      <option>類別</option>
+      <option>地區</option>
+      <option>時間</option>
+    </select>
+  </form>
 </div>
 
 <!-- restaurant list -->
@@ -63,7 +74,7 @@
                 >詳細</a>
                 <form
                   class="m-1"
-                  action="/restaurants/{{this._id}}/delete"
+                  action="/restaurants/{{this._id}}?_method=DELETE"
                   method="POST"
                   style="display: inline;"
                 >
