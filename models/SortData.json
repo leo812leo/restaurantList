@@ -1,0 +1,34 @@
+
+{
+  "nameAsc": {
+    "value": "nameAsc",
+    "option": "A -> Z",
+    "sortItem":"name",
+    "ac":"asc"
+    
+  },
+  "nameDesc": {
+    "value": "nameDesc",
+    "option": "Z -> A",
+    "sortItem":"name",
+    "ac":"desc"
+  },
+  "category": {
+    "value": "category",
+    "option": "類別",
+    "sortItem":"category",
+    "ac":"asc"
+  },
+  "location": {
+    "value": "location",
+    "option": "地區",
+    "sortItem":"location",
+    "ac":"asc"
+  },
+  "updateTime": {
+    "value": "updateTime",
+    "option": "更新時間",
+    "sortItem":"_id",
+    "ac":"desc"
+  }
+}

@@ -1,38 +1,45 @@
-<div class="container all d-flex justify-content-around">
+<div class="container all">
   <!-- search bar -->
-  <div class="search-bar-outer">
-    <div class="search-bar-inner">
-      <form action="/search">
-        <h4 class="mb-2">尋找餐廳：</h4>
-        <div class="input-group">
-          <input
-            type="text"
-            name="keyword"
-            class="form-control"
-            placeholder="輸入餐廳、分類"
-            aria-label="Restaurant Name..."
-            value="{{keyword}}"
-            aria-describedby="search-button"
-          />
-          <div class="input-group-append">
-            <button class="btn btn-major" type="submit" id="search-button"><i
-                class="fas fa-search"
-              ></i></button>
-          </div>
+  <form action="/" method="GET" class="row justify-content-between">
+    <div class="col-6 w-25" style="max-width: 40%">
+      <h4 class="mb-2">尋找餐廳：</h4>
+      <div class="input-group">
+        <input
+          type="text"
+          name="keyword"
+          class="form-control"
+          placeholder="輸入餐廳、分類"
+          aria-label="Restaurant Name..."
+          value="{{keyword}}"
+          aria-describedby="search-button"
+        />
+        <div class="input-group-append">
+          <button class="btn btn-major" type="submit" id="search-button"><i
+              class="fas fa-search"
+            ></i></button>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
-  <form class="form-group">
-    <h4>排序方式</h4>
-    <select class="form-control">
-      <option selected>Sort</option>
-      <option>A -> Z</option>
-      <option>Z -> A</option>
-      <option>類別</option>
-      <option>地區</option>
-      <option>時間</option>
-    </select>
+    <!--Blue select-->
+    <div class="search-bar-inner col-6" style="max-width: 20%">
+      <h4>排序方式</h4>
+      <select
+        class="form-control"
+        name="sortOption"
+        id="sortOption"
+        onchange="submit()"
+      >
+        {{#each SortData}}
+          <option value="{{this.value}}" {{#isEqual this.value ../currentSortOption }} selected{{/isEqual}}>
+             {{this.option}}
+          </option>
+        {{/each}}
+
+        {{! <option value="category">類別</option>
+        <option value="location">地區</option> }}
+
+      </select>
+    </div>
   </form>
 </div>
 
