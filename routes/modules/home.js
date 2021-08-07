@@ -1,7 +1,7 @@
 // import Express 與 Express 路由器
 const express = require('express')
 const router = express.Router()
-//import data (resturant)
+// import data (resturant)
 const Restaurant = require('../../models/restaurant')
 
 // 準備引入路由模組
@@ -11,9 +11,9 @@ router.get('/', (req, res) => {
   const SortData = require('../../models/SortData.json')
   const searchInput = req.query.keyword || ''
   const keyword = searchInput.trim().toLowerCase()
-  const currentSortOption = req.query.sortOption || "nameAsc"
+  const currentSortOption = req.query.sortOption || 'nameAsc'
   const currentSortParams = {}
-  currentSortParams[SortData[currentSortOption]["sortItem"]] = SortData[currentSortOption]["ac"]
+  currentSortParams[SortData[currentSortOption]['sortItem']] = SortData[currentSortOption]['ac']
   Restaurant.find(
     {
       $or: [{ name: { $regex: keyword, $options: 'i' } }, { category: { $regex: keyword, $options: 'i' } }]
@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
 //     .then(restaurants => res.render('index', { restaurants, keyword }))
 //     .catch(error => console.error(error))
 // })
-// //sort 
+// //sort
 // router.get('/sort', (req, res) => {
 //   console.log(req.query)
 

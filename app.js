@@ -19,6 +19,7 @@ app.set('view engine', 'handlebars') //設定的 view engine 是 handlebars
 app.use(express.urlencoded({ extended: true }))
 // setting static files
 app.use(express.static('public'))
+//methodOverride
 app.use(methodOverride('_method'))
 // 將 request 導入路由器
 app.use(routes)
