@@ -3,6 +3,7 @@ const express = require('express')
 const exphbs = require('express-handlebars')
 const methodOverride = require('method-override')
 const session = require('express-session')
+const flash = require('connect-flash')
 /* import User define modules */
 const routes = require('./routes')
 const usePassport = require('./config/passport')
@@ -16,7 +17,7 @@ app.engine('handlebars', exphbs({
   helpers: require('./controller/handlebarHelpers')
 })) // 定義要使用的樣板引擎
 
-app.set('view engine', 'handlebars') //設定的 view engine 是 handlebars
+app.set('view engine', 'handlebars') // 設定的 view engine 是 handlebars
 // body-parser
 app.use(express.urlencoded({ extended: true }))
 // setting static files
@@ -31,10 +32,12 @@ app.use(session({
 }))
 // Passport
 usePassport(app)
-
+app.use(flash())
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
+  res.locals.success_msg = req.flash('success_msg') // 設定 success_msg 訊息
+  res.locals.warning_msg = req.flash('warning_msg') // 設定 warning_msg 訊息
   next()
 })
 // 將 request 導入路由器
