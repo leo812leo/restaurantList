@@ -13,7 +13,7 @@
 
     <!-- navigation -->
     <nav class="navbar navbar-light bg-light d-flex">
-      <div class="container"></div>
+      <div class="container">
         <a class="navbar-brand" href="/">
           <img
             src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
@@ -24,18 +24,20 @@
           />
           {{#if isAuthenticated}}{{user.name}}'s{{/if}}餐廳清單
         </a>
+        {{#if isAuthenticated}}
+          <div class="ml-5 align-self-center d-inline">
+            <a class="mx-0" href="/restaurants/new" target="_blank"><i
+                class="fas fa-folder-plus px-2 mx-0 d-inline"
+              ></i>新增餐廳</a>
+            <a class="mx-0" href="/users/logout"><i
+                class="fas fa-sign-out-alt px-2 mx-0 d-inline"
+              ></i>
+              Logout</a>
+          </div>
+        {{else}}
+          <a class="mx-0" href="/users/login">Login</a>
+        {{/if}}
       </div>
-      {{#if isAuthenticated}}
-      <div class="ml-5 align-self-center d-inline">
-        <a class="mx-0" href="/restaurants/new" target="_blank"><i
-            class="fas fa-folder-plus px-2 mx-0 d-inline"
-          ></i>新增餐廳</a>
-        <a class="mx-0" href="/users/logout"><i class="fas fa-sign-out-alt px-2 mx-0 d-inline"></i>
-        Logout</a>
-      </div>
-      {{else}}
-      <a class="mx-0" href="/users/login">Login</a>
-      {{/if}}
     </nav>
     <div class="banner"></div>
 
@@ -47,8 +49,8 @@
       crossorigin="anonymous"
     ></script>
     <!-- include javascript files here -->
-  <script src="/javascripts/jquery-3.6.0.min.js"></script>
-  <script src="/javascripts/popper.min.js"></script>
-  <script src="/javascripts/bootstrap.js"></script>
+    <script src="/javascripts/jquery-3.6.0.min.js"></script>
+    <script src="/javascripts/popper.min.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
   </body>
 </html>

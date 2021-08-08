@@ -8,6 +8,7 @@ const Restaurant = require('../../models/restaurant')
 
 // homePage
 router.get('/', (req, res) => {
+  const userId = req.user._id
   const SortData = require('../../models/SortData.json')
   const searchInput = req.query.keyword || ''
   const keyword = searchInput.trim().toLowerCase()
@@ -16,7 +17,7 @@ router.get('/', (req, res) => {
   currentSortParams[SortData[currentSortOption]['sortItem']] = SortData[currentSortOption]['ac']
   Restaurant.find(
     {
-      $or: [{ name: { $regex: keyword, $options: 'i' } }, { category: { $regex: keyword, $options: 'i' } }]
+      $or: [{ name: { $regex: keyword, $options: 'i' } }, { category: { $regex: keyword, $options: 'i' } }], userId
     }
   )
     .lean()
