@@ -11,3 +11,9 @@ router.get('/login', (req, res) => {
   return res.render('login')
 })
 module.exports = router
+
+/* register */
+// register page
+router.get('/register', (req, res) => {
+  return res.render('register')
+})
