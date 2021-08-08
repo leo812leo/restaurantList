@@ -10,4 +10,10 @@ const User = require('../../models/user')
 router.get('/login', (req, res) => {
   return res.render('login')
 })
+
+/* register */
+router.get('/register', (req, res) => {
+  return res.render('register')
+})
+
 module.exports = router
