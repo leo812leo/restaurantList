@@ -25,10 +25,7 @@ db.once('open', () => {
           }))
         .then(userDB => {
           const restaurants = SEED_RESTAURANT.filter(restaurant => user.belongRestaurants.includes(restaurant.id))
-          console.log('user', user)
           restaurants.forEach(restaurant => { restaurant.userId = userDB._id })
-          console.log('--------------')
-          console.log('restaurants', restaurants)
           return Restaurant.create(restaurants)
         })
     ))
