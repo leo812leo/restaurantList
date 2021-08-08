@@ -25,23 +25,5 @@ router.get('/', (req, res) => {
     .catch(error => console.error(error))
 })
 
-// // search
-// router.get('/search', (req, res) => {
-//   const keyword = req.query.keyword.toLowerCase().trim()
-//   Restaurant.find(
-//     {
-//       $or: [{ name: { $regex: keyword, $options: 'i' } }, { category: { $regex: keyword, $options: 'i' } }]
-//     }
-//   )
-//     .lean()
-//     .then(restaurants => res.render('index', { restaurants, keyword }))
-//     .catch(error => console.error(error))
-// })
-// //sort
-// router.get('/sort', (req, res) => {
-//   console.log(req.query)
-
-// })
-
 // 匯出路由器
 module.exports = router
