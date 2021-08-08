@@ -4,6 +4,9 @@ const exphbs = require('express-handlebars')
 const methodOverride = require('method-override')
 const session = require('express-session')
 const flash = require('connect-flash')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 /* import User define modules */
 const routes = require('./routes')
 const usePassport = require('./config/passport')
@@ -26,7 +29,7 @@ app.use(express.static('public'))
 app.use(methodOverride('_method'))
 // session
 app.use(session({
-  secret: 'ThisIsMySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
@@ -44,7 +47,7 @@ app.use((req, res, next) => {
 app.use(routes)
 
 // 設定Server Port
-const port = 3000
+const port = process.env.PORT
 // listener
 app.listen(port, () => {
   console.log(`Express is listening on localhost ${port}`)
