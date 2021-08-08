@@ -22,14 +22,20 @@
             class="d-inline-block align-top"
             alt="我的餐廳清單"
           />
-          我的餐廳清單
+          {{#if isAuthenticated}}{{user.name}}'s{{/if}}餐廳清單
         </a>
       </div>
+      {{#if isAuthenticated}}
       <div class="ml-5 align-self-center d-inline">
         <a class="mx-0" href="/restaurants/new" target="_blank"><i
             class="fas fa-folder-plus px-2 mx-0 d-inline"
           ></i>新增餐廳</a>
+        <a class="mx-0" href="/users/logout"><i class="fas fa-sign-out-alt px-2 mx-0 d-inline"></i>
+        Logout</a>
       </div>
+      {{else}}
+      <a class="mx-0" href="/users/login">Login</a>
+      {{/if}}
     </nav>
     <div class="banner"></div>
 
