@@ -5,6 +5,7 @@ const methodOverride = require('method-override')
 const session = require('express-session')
 /* import User define modules */
 const routes = require('./routes')
+const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 const app = express()
@@ -28,6 +29,9 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+// Passport
+usePassport(app)
+
 // 將 request 導入路由器
 app.use(routes)
 
