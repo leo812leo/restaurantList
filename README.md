@@ -19,7 +19,7 @@ git clone https://github.com/leo812leo/restaurantList.git
 
 2. 進入專案目錄
 ```
-cd A3
+cd restaurantList
 ```
 3. 安裝相關套件
 ```
